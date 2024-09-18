@@ -7,53 +7,23 @@ import {
   FaMoneyBill,
   FaMapMarker,
 } from "react-icons/fa";
+
 // import { InferSchemaType } from "mongoose";
 // import Property from "@/models/Property";
 
-// type PropertiesType = InferSchemaType<typeof Property.schema>
-// >;
+// type PropertiesType = InferSchemaType<typeof Property.schema>;
 // interface PropertyCardType {
 //   property: PropertiesType;
 // }
 
-interface Property {
-  _id?: string;
-  owner?: string;
-  name?: string;
-  type?: string;
-  description?: string;
-  location?: {
-    street: string;
-    city: string;
-    state?: string;
-    zipcode?: string;
-  };
-  beds?: number;
-  baths?: number;
-  square_feet?: number;
-  amenities?: string[];
-  rates?: {
-    nightly?: number;
-    weekly?: number;
-    monthly?: number;
-  };
-  seller_info?: {
-    name: string;
-    email: string;
-    phone: string;
-  };
-  images?: string[];
-  is_featured?: boolean;
-  createdAt?: string;
-  updatedAt?: string;
-}
-interface PropertiesType {
-  property: Property;
+import { PropertiesType } from "@/models/Property";
+interface PropertyCardType {
+  property: PropertiesType;
 }
 
-const PropertyCard: React.FC<PropertiesType> = ({ property }) => {
+const PropertyCard: React.FC<PropertyCardType> = ({ property }) => {
   const displayRate = () => {
-    if (property.rates?.monthly) {
+    if (property.rates.monthly) {
       return `$${property.rates.monthly.toLocaleString()}/mo`;
     } else if (property.rates?.weekly) {
       return `$${property.rates.weekly.toLocaleString()}/wk`;
@@ -64,7 +34,7 @@ const PropertyCard: React.FC<PropertiesType> = ({ property }) => {
   return (
     <div className="bg-white rounded-xl shadow-md relative">
       <Image
-        src={`/images/properties/${property.images?.[0]}`}
+        src={`/images/properties/${property.images[0]}`}
         width="0"
         height="0"
         sizes="100vw"
