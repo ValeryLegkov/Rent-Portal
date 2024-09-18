@@ -1,13 +1,18 @@
 import PropertyCard from "@/components/PropertyCard";
 import connectDB from "@/config/database";
 import Property from "@/models/Property";
-import { InferSchemaType } from "mongoose";
+import { PropertiesType } from "@/models/Property";
+// import { InferSchemaType } from "mongoose";
 
 const PropertiesPage = async () => {
   await connectDB();
-  const properties = (await Property.find({}).lean().exec()) as Array<
-    InferSchemaType<typeof Property.schema>
-  >;
+  // const properties = (await Property.find({}).lean().exec()) as Array<
+  //   InferSchemaType<typeof Property.schema>
+  // >;
+  const properties = (await Property.find({})
+    .lean()
+    .exec()) as Array<PropertiesType>;
+  console.log("Properties:", properties);
 
   return (
     <section className="px-4 py-6">
@@ -17,7 +22,10 @@ const PropertiesPage = async () => {
             <p className="text-2xl text-rose-400">No properties found</p>
           ) : (
             properties.map((property) => (
-              <PropertyCard key={property._id} property={property} />
+              <PropertyCard
+                key={property._id?.toString()}
+                property={property}
+              />
             ))
           )}
         </div>
