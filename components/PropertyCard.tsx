@@ -7,21 +7,12 @@ import {
   FaMoneyBill,
   FaMapMarker,
 } from "react-icons/fa";
-
-// import { InferSchemaType } from "mongoose";
-// import Property from "@/models/Property";
-
-// type PropertiesType = InferSchemaType<typeof Property.schema>;
-// interface PropertyCardType {
-//   property: PropertiesType;
-// }
-
 import { PropertiesType } from "@/models/Property";
 interface PropertyCardType {
   property: PropertiesType;
 }
 
-const PropertyCard: React.FC<PropertyCardType> = ({ property }) => {
+export const PropertyCard: React.FC<PropertyCardType> = ({ property }) => {
   const displayRate = () => {
     if (property.rates.monthly) {
       return `$${property.rates.monthly.toLocaleString()}/mo`;
@@ -87,7 +78,7 @@ const PropertyCard: React.FC<PropertyCardType> = ({ property }) => {
           </div>
           <Link
             href={`/properties/${property._id}`}
-            className="h-[36px] bg-indigo-500 hover:bg-indigo-600 text-white px-4 py-2 rounded-lg text-center text-sm"
+            className="h-[36px] bg-indigo-500 hover:bg-indigo-600 text-white px-4 py-2 rounded-lg text-center text-sm font-mono"
           >
             Details
           </Link>
@@ -96,5 +87,3 @@ const PropertyCard: React.FC<PropertyCardType> = ({ property }) => {
     </div>
   );
 };
-
-export default PropertyCard;

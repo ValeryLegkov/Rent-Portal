@@ -1,10 +1,22 @@
-import { Schema, model, models } from "mongoose";
+import { Schema, Types, model } from "mongoose";
 
-const UserSchema = new Schema(
+export interface UserType {
+  _id?: Types.ObjectId;
+  email: string;
+  username: string;
+  image?: string;
+  bookmarks?: Types.ObjectId[];
+  createdAt?: string;
+  updatedAt?: string;
+}
+
+// interface UserModel extends Model, UserType {}
+
+const UserSchema = new Schema<UserType>(
   {
     email: {
       type: String,
-      unique: [true, "Email already exists"],
+      unique: true,
       required: [true, "Email is required"],
     },
     username: { type: String, required: [true, "Username is required"] },
@@ -14,5 +26,8 @@ const UserSchema = new Schema(
   { timestamps: true }
 );
 
-const User = models.User || model("User", UserSchema);
-export default User;
+const UserModel = model<UserType>("User", UserSchema, "users", {
+  overwriteModels: true,
+});
+
+export default UserModel;

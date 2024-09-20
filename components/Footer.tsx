@@ -2,7 +2,7 @@ import logo from "@/assets/images/logo.png";
 import Image from "next/image";
 import Link from "next/link";
 
-const Footer = () => {
+export const Footer = () => {
   const currentYear = new Date().getFullYear();
   return (
     <footer className="bg-gray-200 py-4 mt-20">
@@ -29,5 +29,3 @@ const Footer = () => {
     </footer>
   );
 };
-
-export default Footer;
