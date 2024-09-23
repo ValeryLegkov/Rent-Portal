@@ -1,4 +1,4 @@
-import { Schema, model, models, Types } from "mongoose";
+import { Schema, model, Types } from "mongoose";
 
 export interface PropertiesType {
   _id?: Types.ObjectId;
@@ -32,8 +32,6 @@ export interface PropertiesType {
   updatedAt?: string;
 }
 
-// export interface PropertyDocument extends Document, PropertiesType {}
-
 const PropertySchema = new Schema<PropertiesType>(
   {
     owner: { type: Schema.Types.ObjectId, ref: "User", required: true },
@@ -66,7 +64,11 @@ const PropertySchema = new Schema<PropertiesType>(
   { timestamps: true }
 );
 
-const Property =
-  models.Property || model<PropertiesType>("Property", PropertySchema);
+const Property = model<PropertiesType>(
+  "Property",
+  PropertySchema,
+  "properties",
+  { overwriteModels: true }
+);
 
 export default Property;

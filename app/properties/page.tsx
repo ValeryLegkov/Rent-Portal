@@ -1,18 +1,12 @@
-import PropertyCard from "@/components/PropertyCard";
+import { PropertyCard } from "@/components/PropertyCard";
 import connectDB from "@/config/database";
-import Property from "@/models/Property";
-import { PropertiesType } from "@/models/Property";
-// import { InferSchemaType } from "mongoose";
+import Property, { PropertiesType } from "@/models/Property";
 
 const PropertiesPage = async () => {
   await connectDB();
-  // const properties = (await Property.find({}).lean().exec()) as Array<
-  //   InferSchemaType<typeof Property.schema>
-  // >;
-  const properties = (await Property.find({})
-    .lean()
-    .exec()) as Array<PropertiesType>;
-  console.log("Properties:", properties);
+
+  const properties = (await Property.find({}).lean()) as Array<PropertiesType>;
+  // console.log("Properties:", properties);
 
   return (
     <section className="px-4 py-6">

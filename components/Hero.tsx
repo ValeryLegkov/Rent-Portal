@@ -1,4 +1,4 @@
-const Hero = () => {
+export const Hero = () => {
   return (
     <section className="bg-indigo-500 py-20 mb-4">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center">
@@ -20,7 +20,7 @@ const Hero = () => {
               type="text"
               id="location"
               placeholder="Enter Location (City, State, Zip, etc.)"
-              className="w-full px-4 py-3 rounded-lg bg-white text-gray-800 focus:outline-none focus:ring focus:ring-indigo-300"
+              className="w-full px-4 py-3 rounded-lg bg-white text-gray-800 focus:outline-none focus:ring focus:ring-rose-200"
             />
           </div>
           <div className="w-full md:w-2/5 md:pl-2">
@@ -29,7 +29,7 @@ const Hero = () => {
             </label>
             <select
               id="property-type"
-              className="w-full px-4 py-3 rounded-lg bg-white text-gray-600 focus:outline-none focus:ring focus:ring-indigo-300"
+              className="w-full px-4 py-3 rounded-lg bg-white text-gray-600 focus:outline-none focus:ring focus:ring-rose-200"
             >
               <option value="All">All</option>
               <option value="Apartment">Apartment</option>
@@ -53,5 +53,3 @@ const Hero = () => {
     </section>
   );
 };
-
-export default Hero;
