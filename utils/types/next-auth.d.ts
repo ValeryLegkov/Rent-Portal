@@ -1,5 +1,5 @@
 // types/next-auth.d.ts
-import NextAuth from "next-auth";
+// import NextAuth from "next-auth";
 import { UserType } from "@models/User";
 
 declare module "next-auth" {
