@@ -1,5 +1,6 @@
 import { PropertyHeaderImage } from "@/components/PropertyHeaderImage";
 import { PropertyDetails } from "@/components/PropertyDetails";
+import { PropertyImages } from "@/components/PropertyImages";
 import connectDB from "@/config/database";
 import Property, { PropertiesType } from "@/models/Property";
 import Link from "next/link";
@@ -7,12 +8,13 @@ import { FaArrowLeft } from "react-icons/fa";
 
 const DetailPropertiesPage = async ({ params }: { params: { id: string } }) => {
   await connectDB();
-  const property = (await Property.findById(params.id)
-    .lean()) as PropertiesType;
+  const property = (await Property.findById(
+    params.id
+  ).lean()) as PropertiesType;
 
   return (
     <>
-      <PropertyHeaderImage image={property.images[0]} />
+      <PropertyHeaderImage image={property.images?.[0] ?? ""} />
 
       <section>
         <div className="container m-auto py-6 px-6">
@@ -32,6 +34,8 @@ const DetailPropertiesPage = async ({ params }: { params: { id: string } }) => {
           </div>
         </div>
       </section>
+
+      <PropertyImages images={property.images ?? []} />
     </>
   );
 };

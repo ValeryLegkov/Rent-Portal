@@ -16,16 +16,16 @@ export const PropertyCard: React.FC<PropertyCardType> = ({ property }) => {
   const displayRate = () => {
     if (property.rates.monthly) {
       return `$${property.rates.monthly.toLocaleString()}/mo`;
-    } else if (property.rates?.weekly) {
+    } else if (property.rates.weekly) {
       return `$${property.rates.weekly.toLocaleString()}/wk`;
-    } else if (property.rates?.nightly) {
+    } else if (property.rates.nightly) {
       return `$${property.rates.nightly.toLocaleString()}/night`;
     }
   };
   return (
     <div className="bg-white rounded-xl shadow-md relative">
       <Image
-        src={`/images/properties/${property.images[0]}`}
+        src={property.images?.[0] ?? ""}
         width="0"
         height="0"
         sizes="100vw"
@@ -73,7 +73,7 @@ export const PropertyCard: React.FC<PropertyCardType> = ({ property }) => {
             <FaMapMarker className="text-lg text-rose-500" />
             <span className="text-rose-500">
               {" "}
-              {property.location?.city} {property.location?.state}{" "}
+              {property.location.city} {property.location.state}{" "}
             </span>
           </div>
           <Link

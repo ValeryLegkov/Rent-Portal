@@ -26,8 +26,8 @@ export interface PropertiesType {
     email: string;
     phone: string;
   };
-  images: string[];
-  is_featured: boolean;
+  images?: string[];
+  is_featured?: boolean;
   createdAt?: string;
   updatedAt?: string;
 }
