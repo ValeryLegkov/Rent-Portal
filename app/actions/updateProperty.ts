@@ -1,13 +1,12 @@
 "use server";
-import Property, { PropertiesType } from "@/models/Property";
 import connectDB from "@/config/database";
+import Property, { PropertiesType } from "@/models/Property";
 import { getSessionUser } from "@/utils/getSessionUser";
+import { Types } from "mongoose";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-import { Types } from "mongoose";
-import cloudinary from "@/config/cloudinary";
 
-async function addProperty(formData: FormData) {
+async function updateProperty(propertyId: string, formData: FormData) {
   await connectDB();
 
   const sessionUser = await getSessionUser();
@@ -16,10 +15,12 @@ async function addProperty(formData: FormData) {
   }
   const { userId } = sessionUser;
 
-  // Access the data in the formData object
-  const images = formData.getAll("images") as File[];
-  const imageNames = images.filter((image) => image.name !== "");
-  // console.log(images);
+  const existingProperty = await Property.findById(propertyId);
+
+  // verify ownership
+  if (existingProperty?.owner.toString() !== userId) {
+    throw new Error("Current user does not own this property!");
+  }
 
   const propertyData: PropertiesType = {
     owner: new Types.ObjectId(userId),
@@ -54,32 +55,11 @@ async function addProperty(formData: FormData) {
     },
   };
 
-  const imageUrls = [];
-
-  for (const imageFile of imageNames) {
-    const imageBuffer = await imageFile.arrayBuffer();
-    const imageArray = Array.from(new Uint8Array(imageBuffer));
-    const imageData = Buffer.from(imageArray);
-
-    // convert Base64
-    const base64Image = imageData.toString("base64");
-
-    // make request to cloudinary
-    const result = await cloudinary.uploader.upload(
-      `data:image/jpeg;base64,${base64Image}`,
-      {
-        folder: "Rent-Portal",
-      }
-    );
-
-    imageUrls.push(result.secure_url);
-  }
-  propertyData.images = imageUrls;
-
-  const newProperty = new Property(propertyData);
-  await newProperty.save();
+  const updateData = await Property.findByIdAndUpdate(propertyId, propertyData);
 
   revalidatePath("/", "layout");
-  redirect(`/properties/${newProperty._id}`);
+
+  redirect(`/properties/${updateData?._id}`);
 }
-export default addProperty;
+
+export default updateProperty;
