@@ -1,7 +1,8 @@
 "use server";
 import connectDB from "@/config/database";
 import Property, { PropertiesType } from "@/models/Property";
-import { getSessionUser } from "@/utils/getSessionUser";
+// import { getSessionUser } from "@/utils/getSessionUser";
+import { getSessionHelper } from "@/app/helper/getSessionHelper";
 import { Types } from "mongoose";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
@@ -9,11 +10,11 @@ import { redirect } from "next/navigation";
 async function updateProperty(propertyId: string, formData: FormData) {
   await connectDB();
 
-  const sessionUser = await getSessionUser();
-  if (!sessionUser || !sessionUser.userId) {
-    throw new Error("User ID is required");
-  }
-  const { userId } = sessionUser;
+  // const sessionUser = await getSessionUser();
+  // if (!sessionUser || !sessionUser.userId) {
+  //   throw new Error("User ID is required");
+  // }
+  const userId = await getSessionHelper();
 
   const existingProperty = await Property.findById(propertyId);
 

@@ -7,6 +7,9 @@ import Link from "next/link";
 import { FaArrowLeft } from "react-icons/fa";
 import { convertToSerializedObject } from "@/utils/convertToObject";
 import React from "react";
+import { BookmarkButton } from "@/components/BookmarkButton";
+import { ShareButton } from "@/components/ShareButton";
+import { PropertyContactForm } from "@/components/PropertyContactForm";
 
 const DetailPropertiesPage = async ({ params }: { params: { id: string } }) => {
   await connectDB();
@@ -42,6 +45,12 @@ const DetailPropertiesPage = async ({ params }: { params: { id: string } }) => {
         <div className="container m-auto py-10 px-6">
           <div className="grid grid-cols-1 md:grid-cols-70/30 w-full gap-6">
             <PropertyDetails property={property} />
+
+            <aside className="space-y-4">
+              <BookmarkButton property={property} />
+              <ShareButton property={property} />
+              <PropertyContactForm property={property} />
+            </aside>
           </div>
         </div>
       </section>

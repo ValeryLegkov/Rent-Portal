@@ -8,8 +8,8 @@ export interface PropertiesType {
   description?: string;
   location: {
     street: string;
-    city: string;
-    state: string;
+    city?: string;
+    state?: string;
     zipcode: string;
   };
   beds: number;

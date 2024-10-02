@@ -3,15 +3,18 @@ import connectDB from "@/config/database";
 import cloudinary from "@/config/cloudinary";
 import Property from "@/models/Property";
 import { revalidatePath } from "next/cache";
-import { getSessionUser } from "@/utils/getSessionUser";
+// import { getSessionUser } from "@/utils/getSessionUser";
+import { getSessionHelper } from "@/app/helper/getSessionHelper";
 
 async function deleteProperty(id: string) {
   await connectDB();
-  const sessionUser = await getSessionUser();
-  if (!sessionUser || !sessionUser.userId) {
-    throw new Error("User ID is required");
-  }
-  const { userId } = sessionUser;
+
+  // const sessionUser = await getSessionUser();
+  // if (!sessionUser || !sessionUser.userId) {
+  //   throw new Error("User ID is required");
+  // }
+  // const { userId } = sessionUser;
+  const userId = await getSessionHelper();
 
   const property = await Property.findById(id);
   if (!property) {

@@ -2,6 +2,7 @@ import Image from "next/image";
 import connectDB from "@/config/database";
 import Property, { PropertiesType } from "@/models/Property";
 import { getSessionUser } from "@/utils/getSessionUser";
+import { getSessionHelper } from "@/app/helper/getSessionHelper";
 import profileDefault from "@/assets/images/profile.png";
 import { ProfileProperties } from "@/components/ProfileProperties";
 import { convertToSerializedObject } from "@/utils/convertToObject";
@@ -10,10 +11,11 @@ const ProfilePage = async () => {
   await connectDB();
 
   const sessionUser = await getSessionUser();
-  const userId = sessionUser?.userId;
-  if (!userId) {
-    throw new Error("User ID is required");
-  }
+  // const userId = sessionUser?.userId;
+  // if (!userId) {
+  //   throw new Error("User ID is required");
+  // }
+  const userId = await getSessionHelper();
 
   const propertiesDocs = (await Property.find({
     owner: userId,
@@ -34,18 +36,18 @@ const ProfilePage = async () => {
                   className="h-32 w-32 md:h-48 md:w-48 rounded-full mx-auto md:mx-0"
                   width={100}
                   height={100}
-                  src={sessionUser.user.image || profileDefault}
+                  src={sessionUser?.user.image || profileDefault}
                   alt="User"
                 />
               </div>
 
               <h2 className="text-2xl mb-4">
                 <span className="font-bold block">Name: </span>{" "}
-                {sessionUser.user.name}
+                {sessionUser?.user.name}
               </h2>
               <h2 className="text-2xl">
                 <span className="font-bold block">Email: </span>{" "}
-                {sessionUser.user.email}
+                {sessionUser?.user.email}
               </h2>
             </div>
 

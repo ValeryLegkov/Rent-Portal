@@ -7,6 +7,8 @@ import {
   FaTimes,
   FaCheck,
 } from "react-icons/fa";
+import { PropertyMap } from "./PropertyMap";
+import React from "react";
 
 export const PropertyDetails = ({ property }: { property: PropertiesType }) => {
   return (
@@ -97,7 +99,7 @@ export const PropertyDetails = ({ property }: { property: PropertiesType }) => {
         </div>
         {/* <!-- Map --> */}
         <div className="bg-white p-6 rounded-lg shadow-md mt-6">
-          <div id="map"></div>
+          <PropertyMap location={property.location} />
         </div>
       </main>
     </>

@@ -1,7 +1,8 @@
 "use server";
 import Property, { PropertiesType } from "@/models/Property";
 import connectDB from "@/config/database";
-import { getSessionUser } from "@/utils/getSessionUser";
+// import { getSessionUser } from "@/utils/getSessionUser";
+import { getSessionHelper } from "@/app/helper/getSessionHelper";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { Types } from "mongoose";
@@ -10,11 +11,12 @@ import cloudinary from "@/config/cloudinary";
 async function addProperty(formData: FormData) {
   await connectDB();
 
-  const sessionUser = await getSessionUser();
-  if (!sessionUser || !sessionUser.userId) {
-    throw new Error("User ID is required");
-  }
-  const { userId } = sessionUser;
+  // const sessionUser = await getSessionUser();
+  // if (!sessionUser || !sessionUser.userId) {
+  //   throw new Error("User ID is required");
+  // }
+  // const { userId } = sessionUser;
+  const userId = await getSessionHelper();
 
   // Access the data in the formData object
   const images = formData.getAll("images") as File[];
