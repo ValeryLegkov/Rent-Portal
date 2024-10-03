@@ -20,7 +20,9 @@ export const PropertyAddForm = () => {
           <option value="House">House</option>
           <option value="CabinOrCottage">Cabin or Cottage</option>
           <option value="Room">Room</option>
+          <option value="Chalet">Chalet</option>
           <option value="Studio">Studio</option>
+          <option value="Loft">Loft</option>
           <option value="Other">Other</option>
         </select>
       </div>

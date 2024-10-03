@@ -68,7 +68,7 @@ export const PropertyContactForm = ({ property }) => {
         </div>
         <div>
           <button
-            className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline flex items-center justify-center"
+            className="bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline flex items-center justify-center  hover:outline-none hover:ring hover:ring-indigo-300"
             type="submit"
           >
             <FaPaperPlane className="mr-2" /> Send Message
