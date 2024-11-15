@@ -1,5 +1,4 @@
 # Rent Portal service
 
-## Описание
-
-Краткое описание проекта, его функциональности и цели.
+## Description
+- description will come soon
